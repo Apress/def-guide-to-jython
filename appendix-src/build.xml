@@ -1,0 +1,11 @@
+<project name="ant jython demo" default="testit" basedir=".">
+    
+      <!-- Define the tasks we are building -->
+      <taskdef name="Simple" classname="SimpleTask" />
+    
+      <!-- Test Case starts here -->
+      <target name="testit"> 
+         <Simple message="Hello World!" />
+      </target>
+    
+</project>

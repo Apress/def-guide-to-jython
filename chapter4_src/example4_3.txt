@@ -1,0 +1,4 @@
+This is an example of using a coroutine for the Definitive Guide to
+Jython book.  This example counts the number of times a particular
+word is found in this text file.  It will return the count to the
+user.

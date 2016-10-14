@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ poll.question }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="./vote/" method="post">
+{% for choice in poll.choice_set.all %}
+    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+    <label for="choice{{ forloop.counter }}">{{ choice.choice }}</label><br />
+{% endfor %}
+<input type="submit" value="Vote" />
+</form>
+
+{% load comments %}
+{% get_comment_list for poll as comments %}
+{% get_comment_count for poll as comments_count %}
+
+{% if comments %}
+<p>{{ comments_count }} comments:</p>
+{% for comment in comments %}
+<div class="comment">
+  <div class="title">
+    <p><small>
+	Posted by <a href="{{ comment.user_url }}">{{ comment.user_name }}</a>,
+        {{ comment.submit_date|timesince }} ago:
+    </small></p>
+  </div>
+  <div class="entry">
+    <p>
+    {{ comment.comment }}
+    </p>
+  </div>
+</div>
+
+{% endfor %}
+
+{% else %}
+<p>No comments yet.</p>
+{% endif %}
+
+<h2>Left your comment:</h2>
+{% render_comment_form for poll %}
+{% endblock %}
